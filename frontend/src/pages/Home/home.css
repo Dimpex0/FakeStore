@@ -1,0 +1,8 @@
+.products-section {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 40px;
+  padding: 0 150px;
+}

@@ -1,0 +1,98 @@
+.card-container {
+  width: 300px;
+  min-height: 370px;
+  background-color: white;
+  border-radius: 16px;
+  padding: 10px;
+}
+
+img {
+  width: 100px;
+  height: 200px;
+  object-fit: contain;
+  display: block;
+  margin: auto;
+}
+
+h2 {
+  text-align: center;
+  font-family: "Roboto-Medium";
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.card-description {
+  font-family: "Roboto-Light";
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin: 0;
+}
+
+.card-price-rating-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 10px;
+  height: 40px;
+}
+
+.card-rating-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+}
+
+.card-rating-container > div {
+  position: relative;
+}
+
+.card-filled-stars {
+  position: absolute;
+  overflow: hidden;
+  height: 18px;
+  left: 0;
+  color: #7600ff;
+  background-clip: padding-box;
+  white-space: nowrap;
+}
+
+.card-rating-number {
+  font-family: "Roboto-Medium";
+  margin: 0;
+}
+
+.card-price {
+  font-family: "Roboto-Medium";
+  color: #7600ff;
+  font-size: 24px;
+}
+
+.card-action-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 10px;
+  margin: 10px 0;
+}
+
+.card-action-container button {
+  width: 130px;
+  height: 40px;
+  border-radius: 16px;
+  border: 1px solid #7600ff;
+  font-size: 16px;
+  font-family: "Roboto-Medium";
+}
+
+.add-to-cart {
+  color: #7600ff;
+  background-color: white;
+}
+
+.buy-now {
+  background-color: #7600ff;
+  color: white;
+}
