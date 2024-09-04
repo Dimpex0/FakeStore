@@ -31,7 +31,11 @@ DEBUG = bool(int(os.getenv('DEBUG', 1)))
 
 ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', '').split(' ')
 
-CSRF_TRUSTED_ORIGINS = os.getenv('CSRF_TRUSTED_ORIGINS', '').split(' ')
+if DEBUG:
+    CSRF_TRUSTED_ORIGINS = os.getenv('CSRF_TRUSTED_ORIGINS', '').split(' ')
+    CORS_ALLOWED_ORIGINS = os.getenv('CORS_ALLOWED_ORIGINS', '').split(' ')
+
+    CORS_ALLOW_CREDENTIALS = True
 
 DOMAIN = os.getenv('DOMAIN', 'http://localhost:3000')
 
@@ -99,6 +103,12 @@ DATABASES = {
         "PORT": os.getenv('DB_POST', '5432'),
     }
 }
+
+# REST_FRAMEWORK = {
+#     'DEFAULT_AUTHENTICATION_CLASSES': [
+#         'rest_framework.authentication.SessionAuthentication',
+#     ]
+# }
 
 
 # Password validation

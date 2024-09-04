@@ -1,9 +1,10 @@
 import { Outlet } from "react-router-dom";
+import MainNavigation from "../../elements/MainNavigation/MainNavigation";
 
 export default function RootElements() {
   return (
     <div>
-      <h1>Root</h1>
+      <MainNavigation />
       <Outlet />
     </div>
   );

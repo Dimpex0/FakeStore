@@ -1,7 +1,7 @@
 import "./ItemCard.css";
 
 export default function ItemCard({ product }) {
-  const { category, description, id, image, price, rating, title } = product;
+  const { description, image, price, rating, title } = product;
   const filledStarsPercent = (rating.rate / 5) * 100;
   return (
     <div className="card-container">
