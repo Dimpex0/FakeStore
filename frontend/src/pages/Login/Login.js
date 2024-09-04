@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useAccountStore } from "../../store/account";
 import { getCsrfToken } from "../../utils/auth";
 import { useNavigate } from "react-router-dom";
@@ -8,8 +8,15 @@ export default function LoginPage() {
   const [error, setError] = useState("");
   const updateIsLoggedIn = useAccountStore((state) => state.updateIsLoggedIn);
   const updateIsAdmin = useAccountStore((state) => state.updateIsAdmin);
+  const { isLoggedIn } = useAccountStore();
 
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (isLoggedIn) {
+      navigate("/");
+    }
+  }, [isLoggedIn]);
 
   function handleInputChange(e) {
     setFormData({

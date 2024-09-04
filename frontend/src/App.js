@@ -4,7 +4,7 @@ import HomePage from "./pages/Home/Home";
 import { useEffect } from "react";
 import { useProductsStore } from "./store/products";
 import { useAccountStore } from "./store/account";
-import useFetch from "./hooks/useFetch";
+import { getCsrfToken } from "./utils/auth";
 import LoginPage from "./pages/Login/Login";
 
 const router = createBrowserRouter([
@@ -30,49 +30,49 @@ function App() {
 
   // -------------------------------- FETCH PRODUCTS --------------------------------
 
-  const [productsError, productsMessage, productsData, fetchProducts] =
-    useFetch("GET", "https://fakestoreapi.com/products");
-
   useEffect(() => {
-    if (productsData) {
-      setProducts(productsData);
+    async function fetchProducts() {
+      const response = await fetch("https://fakestoreapi.com/products");
+      if (response.ok) {
+        const responseProducts = await response.json();
+        setProducts(responseProducts);
+      }
     }
-  }, [productsData, setProducts]);
+
+    fetchProducts();
+  }, [setProducts]);
 
   // END -------------------------------- FETCH PRODUCTS -------------------------------- END
   // -------------------------------- CHECK SESSION ----------------------------------
-  const [accountError, accountMessage, accountData, fetchAccount] = useFetch(
-    "POST",
-    `${process.env.REACT_APP_BACKEND_DOMAIN}/account/check-session/`
-  );
 
   useEffect(() => {
-    if (accountError) {
-      resetAccountData();
-    } else {
-      if (accountData) {
+    async function checkSession() {
+      const response = await fetch(
+        `${process.env.REACT_APP_BACKEND_DOMAIN}/account/check-session/`,
+        {
+          method: "POST",
+          credentials: "include",
+          headers: {
+            "Content-Type": "application/json",
+            "X-CSRFToken": getCsrfToken(),
+          },
+        }
+      );
+      const responseData = await response.json();
+      if (response.ok) {
         updateIsLoggedIn(true);
-        console.log(accountData);
-        if (accountData.isAdmin) {
+        if (responseData.isAdmin) {
           updateIsAdmin(true);
         }
+      } else {
+        resetAccountData();
       }
     }
-  }, [
-    accountError,
-    accountMessage,
-    accountData,
-    resetAccountData,
-    updateIsLoggedIn,
-    updateIsAdmin,
-  ]);
+
+    checkSession();
+  }, [resetAccountData, updateIsAdmin, updateIsLoggedIn]);
 
   // END -------------------------------- CHECK SESSION -------------------------------- END
-
-  useEffect(() => {
-    fetchProducts();
-    fetchAccount();
-  }, []);
 
   return (
     <RouterProvider router={router}>
