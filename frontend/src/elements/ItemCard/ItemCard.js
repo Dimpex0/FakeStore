@@ -1,8 +1,34 @@
+import { useNavigate } from "react-router-dom";
+import { useAccountStore } from "../../store/account";
+import { getCsrfToken } from "../../utils/auth";
 import "./ItemCard.css";
 
 export default function ItemCard({ product }) {
-  const { description, image, price, rating, title } = product;
+  const { id, description, image, price, rating, title } = product;
   const filledStarsPercent = (rating.rate / 5) * 100;
+
+  const { isLoggedIn } = useAccountStore();
+  const navigate = useNavigate();
+
+  async function handleAddToCart() {
+    if (!isLoggedIn) {
+      navigate(`/account/login?next=/cart&cart_item_to_add=${id}`);
+    } else {
+      const response = await fetch(
+        `${process.env.REACT_APP_BACKEND_DOMAIN}/cart/add/${id}/1/`,
+        {
+          method: "POST",
+          credentials: "include",
+          headers: {
+            "Content-Type": "application/json",
+            "X-CSRFToken": getCsrfToken(),
+          },
+        }
+      );
+      // TODO handle response
+    }
+  }
+
   return (
     <div className="card-container">
       <img src={image} alt={title} />
@@ -32,7 +58,9 @@ export default function ItemCard({ product }) {
         </div>
       </div>
       <div className="card-action-container">
-        <button className="add-to-cart">Add to cart</button>
+        <button onClick={handleAddToCart} className="add-to-cart">
+          Add to cart
+        </button>
         <button className="buy-now">Buy now</button>
       </div>
     </div>

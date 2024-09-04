@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     
     # own apps
     'backend.account',
+    'backend.cart',
     
     # 3rd party apps
     'rest_framework',

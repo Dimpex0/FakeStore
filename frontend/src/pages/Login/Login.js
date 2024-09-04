@@ -1,22 +1,33 @@
 import { useEffect, useState } from "react";
 import { useAccountStore } from "../../store/account";
 import { getCsrfToken } from "../../utils/auth";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 
 export default function LoginPage() {
+  const { isLoggedIn } = useAccountStore();
   const [formData, setFormData] = useState({ email: "", password: "" });
   const [error, setError] = useState("");
   const updateIsLoggedIn = useAccountStore((state) => state.updateIsLoggedIn);
   const updateIsAdmin = useAccountStore((state) => state.updateIsAdmin);
-  const { isLoggedIn } = useAccountStore();
+
+  const [searchParams, setSearchParams] = useSearchParams();
+  const nextPageAddress = searchParams.get("next");
+  const cartItemToAddID = searchParams.get("cart_item_to_add");
 
   const navigate = useNavigate();
 
   useEffect(() => {
     if (isLoggedIn) {
-      navigate("/");
+      handleRedirect();
     }
   }, [isLoggedIn]);
+
+  function handleRedirect() {
+    if (cartItemToAddID) {
+      // ADD ITEM TO CART
+    }
+    navigate(searchParams.get("next") || "/");
+  }
 
   function handleInputChange(e) {
     setFormData({
@@ -50,7 +61,7 @@ export default function LoginPage() {
       } else {
         updateIsAdmin(false);
       }
-      navigate("/");
+      navigate(searchParams.get("next") || "/");
     }
   }
   return (
