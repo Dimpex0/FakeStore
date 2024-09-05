@@ -1,0 +1,9 @@
+.add-to-cart {
+  color: #7600ff;
+  background-color: white;
+}
+
+.add-to-cart:hover {
+  background-color: #7600ff;
+  color: white;
+}

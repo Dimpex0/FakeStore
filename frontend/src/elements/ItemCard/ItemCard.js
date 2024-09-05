@@ -2,6 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { useAccountStore } from "../../store/account";
 import { getCsrfToken } from "../../utils/auth";
 import "./ItemCard.css";
+import AddToCartButton from "../AddToCartButton/AddToCartButton";
 
 export default function ItemCard({ product }) {
   const { id, description, image, price, rating, title } = product;
@@ -58,9 +59,9 @@ export default function ItemCard({ product }) {
         </div>
       </div>
       <div className="card-action-container">
-        <button onClick={handleAddToCart} className="add-to-cart">
+        <AddToCartButton productId={id} quantity={1}>
           Add to cart
-        </button>
+        </AddToCartButton>
         <button className="buy-now">Buy now</button>
       </div>
     </div>
