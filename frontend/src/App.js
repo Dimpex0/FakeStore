@@ -7,6 +7,7 @@ import { useAccountStore } from "./store/account";
 import { getCsrfToken } from "./utils/auth";
 import LoginPage from "./pages/Login/Login";
 import LogoutPage from "./pages/Logout/Logout";
+import ProductPage from "./pages/Product/Product";
 
 const router = createBrowserRouter([
   {
@@ -20,6 +21,10 @@ const router = createBrowserRouter([
           { path: "login", element: <LoginPage /> },
           { path: "logout", element: <LogoutPage /> },
         ],
+      },
+      {
+        path: "product",
+        children: [{ path: ":id", element: <ProductPage /> }],
       },
     ],
   },

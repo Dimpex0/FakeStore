@@ -4,6 +4,12 @@
   background-color: white;
   border-radius: 16px;
   padding: 10px;
+  box-shadow: 0 0 10px lightgray;
+}
+
+.card-container a {
+  all: unset;
+  cursor: pointer;
 }
 
 img {
@@ -44,20 +50,6 @@ h2 {
   align-items: center;
   justify-content: center;
   gap: 5px;
-}
-
-.card-rating-container > div {
-  position: relative;
-}
-
-.card-filled-stars {
-  position: absolute;
-  overflow: hidden;
-  height: 18px;
-  left: 0;
-  color: #7600ff;
-  background-clip: padding-box;
-  white-space: nowrap;
 }
 
 .card-rating-number {

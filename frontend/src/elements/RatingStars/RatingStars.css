@@ -1,0 +1,13 @@
+.stars-container {
+  position: relative;
+}
+
+.filled-stars {
+  position: absolute;
+  overflow: hidden;
+  height: 18px;
+  left: 0;
+  color: #7600ff;
+  background-clip: padding-box;
+  white-space: nowrap;
+}

@@ -14,7 +14,7 @@ class CartAPIView(APIView):
         if Cart.objects.filter(user=request.user, itemID=id).exists():
             product_cart = Cart.objects.get(user=request.user, itemID=id)
             if quantity != 0:
-                product_cart.quantity = quantity
+                product_cart.quantity = product_cart.quantity + quantity
                 product_cart.save()
                 return Response({'message': 'Item updated successfully.'}, status=200)
             else:
