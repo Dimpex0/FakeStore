@@ -17,7 +17,7 @@ export default function ProductPage() {
     <>
       {currentProduct ? (
         <div className="product-container">
-          <img src={currentProduct.image} />
+          <img src={currentProduct.image} alt={currentProduct.title} />
           <div className="product-info">
             <h3>{currentProduct.title}</h3>
             <h5>{currentProduct.category}</h5>
@@ -27,7 +27,12 @@ export default function ProductPage() {
             </div>
             <p className="product-description">{currentProduct.description}</p>
             <div className="product-actions">
-              <AddToCartButton>Add to cart</AddToCartButton>
+              <AddToCartButton
+                quantity={quantity}
+                productId={currentProduct.id}
+              >
+                Add to cart
+              </AddToCartButton>
               <div className="product-quantity">
                 <i
                   onClick={() => {

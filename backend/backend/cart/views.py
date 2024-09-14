@@ -6,6 +6,19 @@ from .models import Cart
 
 # Create your views here.
 
+class GetCartAPIView(APIView):
+    permission_classes = [IsAuthenticated]
+    authentication_classes = [SessionAuthentication]
+    
+    def get(self, request):
+        user = request.user
+        user_cart = Cart.objects.filter(user=user)
+        if user_cart.exists():
+            user_cart_list = [{"id":item.itemID, 'quantity': item.quantity} for item in user_cart]
+            return Response({'cart': user_cart_list}, status=200)
+        else:
+            return Response({'message': 'Cart is empty'}, status=404)
+
 class CartAPIView(APIView):
     permission_classes = [IsAuthenticated]
     authentication_classes = [SessionAuthentication]

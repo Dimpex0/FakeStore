@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useAccountStore } from "../../store/account";
 import { getCsrfToken } from "../../utils/auth";
 import { useNavigate, useSearchParams } from "react-router-dom";
+import { addToCart } from "../../utils/cart";
 
 export default function LoginPage() {
   const { isLoggedIn } = useAccountStore();
@@ -11,8 +12,8 @@ export default function LoginPage() {
   const updateIsAdmin = useAccountStore((state) => state.updateIsAdmin);
 
   const [searchParams, setSearchParams] = useSearchParams();
-  const nextPageAddress = searchParams.get("next");
   const cartItemToAddID = searchParams.get("cart_item_to_add");
+  const productQuantity = searchParams.get("quantity");
 
   const navigate = useNavigate();
 
@@ -22,9 +23,9 @@ export default function LoginPage() {
     }
   }, [isLoggedIn]);
 
-  function handleRedirect() {
+  async function handleRedirect() {
     if (cartItemToAddID) {
-      // ADD ITEM TO CART
+      const response = await addToCart(cartItemToAddID, productQuantity);
     }
     navigate(searchParams.get("next") || "/");
   }

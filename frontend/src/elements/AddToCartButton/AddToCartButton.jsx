@@ -1,8 +1,8 @@
 import { useNavigate } from "react-router-dom";
 import { useAccountStore } from "../../store/account";
-import { getCsrfToken } from "../../utils/auth";
 
 import "./AddToCartButton.css";
+import { addToCart } from "../../utils/cart";
 
 export default function AddToCartButton({
   className = undefined,
@@ -11,25 +11,17 @@ export default function AddToCartButton({
   children,
 }) {
   const { isLoggedIn } = useAccountStore();
-
   const navigate = useNavigate();
+  const currentUrl = window.location.pathname;
 
   async function handleAddToCart() {
     if (!isLoggedIn) {
-      navigate(`/account/login?next=/cart&cart_item_to_add=${productId}`);
-    } else {
-      const response = await fetch(
-        `${process.env.REACT_APP_BACKEND_DOMAIN}/cart/add/${productId}/${quantity}/`,
-        {
-          method: "POST",
-          credentials: "include",
-          headers: {
-            "Content-Type": "application/json",
-            "X-CSRFToken": getCsrfToken(),
-          },
-        }
+      navigate(
+        `/account/login?next=${currentUrl}&cart_item_to_add=${productId}&quantity=${quantity}`
       );
-      // TODO handle response
+    } else {
+      const response = await addToCart(productId, quantity);
+      // handle response
     }
   }
   return (

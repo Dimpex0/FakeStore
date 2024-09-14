@@ -8,6 +8,7 @@ import { getCsrfToken } from "./utils/auth";
 import LoginPage from "./pages/Login/Login";
 import LogoutPage from "./pages/Logout/Logout";
 import ProductPage from "./pages/Product/Product";
+import CartPage from "./pages/Cart/Cart";
 
 const router = createBrowserRouter([
   {
@@ -26,6 +27,7 @@ const router = createBrowserRouter([
         path: "product",
         children: [{ path: ":id", element: <ProductPage /> }],
       },
+      { path: "cart", children: [{ path: "", element: <CartPage /> }] },
     ],
   },
 ]);
